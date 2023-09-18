@@ -12,13 +12,14 @@ public class Library {
     public void AddBook(Book book) {
         books.add(book);
     }
-    public void RemoveBook(String isbn) {
+    public Book RemoveBook(String isbn) {
         for(Book book : books) {
-            if(book.ISBM.equals(isbn)) {
+            if(book.ISBN.equals(isbn)) {
                 books.remove(book);
-                return;
+                return book;
             }
         }
+        return null;
     }
     public ArrayList<Book> ShowBooks() {
         return books;
