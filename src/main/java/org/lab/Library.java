@@ -9,12 +9,13 @@ public class Library {
         books = new ArrayList<Book>();
     }
 
-    public void AddBook(Book book) {
+    public Book AddBook(Book book) {
         books.add(book);
+        return book;
     }
-    public Book RemoveBook(String isbn) {
+    public Book RemoveBook(long isbn) {
         for(Book book : books) {
-            if(book.ISBN.equals(isbn)) {
+            if(book.ISBN == isbn) {
                 books.remove(book);
                 return book;
             }

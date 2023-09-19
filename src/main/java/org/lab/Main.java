@@ -6,16 +6,38 @@ import java.util.Scanner;
 
 public class Main {
 
+    public static long getISBN(Scanner in) {
+        String message = "The value was not valid, please, ISBN should be 10 or 13 numbers";
+        while (in.hasNext()) {
+            if (in.hasNextLong()) {
+                String val = in.nextLine();
+                if (val.length() == 10 || val.length() == 13) {
+                    return Long.parseLong(val);
+                }
+                else {
+                    System.out.println(message);
+                }
+            } else {
+                System.out.println(message);
+                in.nextLine();
+            }
+        }
+        return -1;
+    }
     public static int getNumberInputInRange(Scanner in, int range) {
+        String message = String.format("The value was not valid, please, enter number in range (0-%s): ", range);
         while (in.hasNext()) {
             if (in.hasNextInt()) {
                 int val = Integer.parseInt(in.nextLine());
-                if (val >= 1 && val < range) { // <-- from "0" to "range".
+                if (val >= 1 && val <= range) {
                     return val;
                 }
+                else {
+                    System.out.println(message);
+                }
             } else {
-                System.out.println("The value was not valid, please, try again: ");
-                in.next();
+                System.out.println(message);
+                in.nextLine();
             }
         }
         return -1;
@@ -33,8 +55,8 @@ public class Main {
     public static void main(String[] args) {
         Library library = new Library();
         Scanner scanner = new Scanner(System.in);
-        Boolean isRunning = true;
-        while(isRunning) {
+        boolean isRunning = true;
+        while (true){
             System.out.print("Enter a number of action:\n1 - Add book\n2 - Search book by title\n3 - Remove book by ISBN\n4 - Show all books\n5 - Exit application\n");
             int action = getNumberInputInRange(scanner, 5);
             switch (action) {
@@ -44,10 +66,10 @@ public class Main {
                     System.out.println("Enter author: ");
                     String author = scanner.nextLine();
                     System.out.println("Enter ISBN: ");
-                    String ISBN = scanner.nextLine();
+                    long ISBN = getISBN(scanner);
                     System.out.println("Enter release year: ");
                     int releaseYear = getNumberInputInRange(scanner, 2023);
-                    library.AddBook(new Book(title, author, ISBN, releaseYear));
+                    displayBook(library.AddBook(new Book(title, author, ISBN, releaseYear)));
                 }
                 case 2 -> {
                     System.out.println("Enter title: ");
@@ -56,7 +78,7 @@ public class Main {
                 }
                 case 3 -> {
                     System.out.println("Enter ISBN: ");
-                    String bookISBN = scanner.nextLine();
+                    long bookISBN = Long.parseLong(scanner.nextLine());
                     Book removedBook = library.RemoveBook(bookISBN);
                     if (removedBook != null) System.out.println("Removed Book: ");
                     displayBook(removedBook);
@@ -74,12 +96,12 @@ public class Main {
                 }
                 case 5 -> {
                     isRunning = false;
-                    System.exit(0);
                 }
             }
+            if (!isRunning) break;
             System.out.println("Continue? yes/no");
             String answer = scanner.nextLine();
-            if(answer.toLowerCase() == "yes") break;
+            if(answer.equalsIgnoreCase("no")) break;
 
         }
 

@@ -3,10 +3,10 @@ package org.lab;
 public class Book {
     public String title;
     public String author;
-    public String ISBN;
+    long ISBN;
     public int releaseYear;
 
-    public Book(String title, String author, String ISBN, int releaseYear) {
+    public Book(String title, String author, long ISBN, int releaseYear) {
         this.title = title;
         this.author = author;
         this.ISBN = ISBN;
