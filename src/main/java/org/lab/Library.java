@@ -13,7 +13,7 @@ public class Library {
         books.add(book);
         return book;
     }
-    public Book RemoveBook(long isbn) {
+    public Book RemoveBookByISBN(long isbn) {
         for(Book book : books) {
             if(book.ISBN == isbn) {
                 books.remove(book);

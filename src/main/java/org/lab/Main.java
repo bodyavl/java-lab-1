@@ -1,6 +1,5 @@
 package org.lab;
 
-import javax.lang.model.element.Name;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -79,7 +78,7 @@ public class Main {
                 case 3 -> {
                     System.out.println("Enter ISBN: ");
                     long bookISBN = Long.parseLong(scanner.nextLine());
-                    Book removedBook = library.RemoveBook(bookISBN);
+                    Book removedBook = library.RemoveBookByISBN(bookISBN);
                     if (removedBook != null) System.out.println("Removed Book: ");
                     displayBook(removedBook);
                 }
